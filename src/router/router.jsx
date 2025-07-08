@@ -3,6 +3,11 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/home/Home";
 import Apartments from "../pages/apartments/Apartments";
 import Login from "../pages/login/Login";
+import PrivacyPolicy from "../pages/privacyPolicy/PrivacyPolicy";
+import TermsService from "../pages/tremsService/TremsService";
+import Coupons from "../pages/home/coupons/Coupons";
+import AboutBuilding from "../pages/home/aboutBuilding/AboutBuilding";
+import FAQs from "../pages/faqs/FAQs";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +21,26 @@ export const router = createBrowserRouter([
       {
         path: "apartment",
         Component: Apartments,
+      },
+      {
+        path: "coupons",
+        Component: Coupons,
+      },
+      {
+        path: "aboutBuilding",
+        Component: AboutBuilding,
+      },
+      {
+        path: "/privacyPolicy",
+        Component: PrivacyPolicy,
+      },
+      {
+        path: "/termsService",
+        Component: TermsService,
+      },
+      {
+        path: "/faqs",
+        Component: FAQs,
       },
       {
         path: "login",
