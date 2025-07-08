@@ -7,8 +7,8 @@ import banner3 from '../../../assets/banner/banner_3.jpg'
 import banner4 from '../../../assets/banner/banner_4.jpg'
 const Banner = () => {
   return (
-    <div>
-      <Carousel className="p-2" showThumbs={false} infiniteLoop={true} autoPlay={true}>
+    <div className="bg-primary mt-6">
+      <Carousel className="px-2 max-w-[1600px] mx-auto" showThumbs={false} infiniteLoop={true} autoPlay={true}>
         <div>
           <img className=" lg:h-[600px] rounded-2xl object-cover" src={banner1} />
         </div>
@@ -27,5 +27,4 @@ const Banner = () => {
     </div>
   );
 };
-
 export default Banner;

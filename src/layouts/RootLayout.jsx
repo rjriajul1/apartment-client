@@ -8,7 +8,7 @@ const RootLayout = () => {
             <div className='sticky top-0 z-50'>
                 <Navbar/>
             </div>
-            <div className='max-w-[1600px] mx-auto'>
+            <div className=''>
                 <Outlet/>
             </div>
             <p>Footer</p>
