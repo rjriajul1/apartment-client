@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router";
 import Logo from "../logo/Logo";
-
+import profile from "../../../assets/profile_logo.png";
 const Navbar = () => {
   const links = (
     <>
@@ -13,6 +13,26 @@ const Navbar = () => {
           }
         >
           Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/apartment"
+          className={({ isActive }) =>
+            isActive ? "underline text-xl" : "text-xl"
+          }
+        >
+          Apartment
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/login"
+          className={({ isActive }) =>
+            isActive ? "underline text-xl" : "text-xl"
+          }
+        >
+          Login
         </NavLink>
       </li>
     </>
@@ -46,13 +66,38 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <div className="text-xl"><Logo/></div>
+          <div className="text-xl">
+            <Logo />
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <button
+          className="hover:cursor-pointer"
+            popoverTarget="popover-1"
+            style={{ anchorName: "--anchor-1" } /* as React.CSSProperties */}
+          >
+             <img className="w-16" src={profile} alt="" />
+          </button>
+
+          <ul
+            className="dropdown menu w-42 -ml-25 rounded-box bg-base-100 shadow-sm"
+            popover="auto"
+            id="popover-1"
+            style={
+              { positionAnchor: "--anchor-1" } /* as React.CSSProperties */
+            }
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Item 2</a>
+            </li>
+          </ul>
+         
         </div>
       </div>
     </div>
