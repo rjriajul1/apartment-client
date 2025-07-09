@@ -1,9 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import Logo from "../logo/Logo";
 import profile from "../../../assets/profile_logo.png";
+import { useAuth } from "../../../hooks/useAuth";
 const Navbar = () => {
-
+const {user,userSignout} = useAuth()
   const links = (
     <>
       <li>
@@ -80,7 +81,7 @@ const Navbar = () => {
             popoverTarget="popover-1"
             style={{ anchorName: "--anchor-1" } /* as React.CSSProperties */}
           >
-             <img className="w-16" src={profile} alt="" />
+             {user? <img className="w-16 h-16 rounded-full object-cover" src={user?.photoURL} alt="profile picture " />: <img className="w-16" src={profile} alt="" />}
           </button>
 
           <ul
@@ -92,10 +93,13 @@ const Navbar = () => {
             }
           >
             <li>
-              <a>Item 1</a>
+              <p className="text-[18px] font-bold text-center">Name: {user?.displayName}</p>
             </li>
             <li>
-              <a>Item 2</a>
+              <Link className="font-bold text-[16px]" to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <button className="btn btn-primary my-4" onClick={userSignout}>Logout</button>
             </li>
           </ul>
          

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import loginLottie from "../../assets/lottie/login_lottie.file.json";
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 const Login = () => {
   const { userSignIn } = useAuth();
+  const location = useLocation()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -26,6 +28,7 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          navigate(location?.state || '/')
         }
       })
       .catch((error) => {

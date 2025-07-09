@@ -9,6 +9,8 @@ import Coupons from "../pages/home/coupons/Coupons";
 import AboutBuilding from "../pages/home/aboutBuilding/AboutBuilding";
 import FAQs from "../pages/faqs/FAQs";
 import Register from "../pages/register/Register";
+import PrivateRoutes from "../routes/PrivateRoutes";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -53,4 +55,15 @@ export const router = createBrowserRouter([
       },
     ],
   },
+ 
+ {
+    path:'/dashboard',
+    element:<PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
+    children: [
+      
+
+     
+    ]
+    }
+
 ]);
