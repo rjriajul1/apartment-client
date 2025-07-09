@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import loginLottie from "../../assets/lottie/login_lottie.file.json";
 import Lottie from "lottie-react";
@@ -6,10 +6,12 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 const Login = () => {
   const { userSignIn } = useAuth();
   const location = useLocation()
   const navigate = useNavigate()
+  const [show,setShow] = useState(false)
   const {
     register,
     handleSubmit,
@@ -65,12 +67,17 @@ const Login = () => {
 
               {/*password*/}
               <label className="label">Password</label>
-              <input
-                type="password"
+             <div className="relative">
+               <input
+                type={show ? 'text' : 'password'}
                 {...register("password", { required: true })}
                 className="input"
                 placeholder="Password"
               />
+              <div onClick={()=> setShow(!show)} className=" z-50 absolute top-2 right-4">
+                {show ? <IoMdEyeOff size={24} /> : <IoMdEye size={24}/>}
+              </div>
+             </div>
 
               {errors?.password && (
                 <p className="text-red-500">{"password is required"}</p>

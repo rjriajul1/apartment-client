@@ -3,13 +3,8 @@ import { NavLink, Outlet } from "react-router";
 import Logo from "../pages/shared/logo/Logo";
 import {
   FaBoxOpen,
-  FaMoneyCheckAlt,
-  FaSearchLocation,
   FaUserEdit,
-  FaUserClock,
-  FaMotorcycle,
-  FaUserShield,
-  FaUserPlus,
+ 
 } from "react-icons/fa";
 
 

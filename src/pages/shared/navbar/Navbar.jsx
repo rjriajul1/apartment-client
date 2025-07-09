@@ -4,7 +4,7 @@ import Logo from "../logo/Logo";
 import profile from "../../../assets/profile_logo.png";
 import { useAuth } from "../../../hooks/useAuth";
 const Navbar = () => {
-const {user,userSignout} = useAuth()
+  const { user, userSignout } = useAuth();
   const links = (
     <>
       <li>
@@ -27,16 +27,20 @@ const {user,userSignout} = useAuth()
           Apartment
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
-            isActive ? "underline text-xl" : "text-xl"
-          }
-        >
-          Login
-        </NavLink>
-      </li>
+      {user ? (
+        ""
+      ) : (
+        <li>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              isActive ? "underline text-xl" : "text-xl"
+            }
+          >
+            Login
+          </NavLink>
+        </li>
+      )}
     </>
   );
   return (
@@ -77,11 +81,19 @@ const {user,userSignout} = useAuth()
         </div>
         <div className="navbar-end">
           <button
-          className="hover:cursor-pointer"
+            className="hover:cursor-pointer"
             popoverTarget="popover-1"
             style={{ anchorName: "--anchor-1" } /* as React.CSSProperties */}
           >
-             {user? <img className="w-16 h-16 rounded-full object-cover" src={user?.photoURL} alt="profile picture " />: <img className="w-16" src={profile} alt="" />}
+            {user ? (
+              <img
+                className="w-16 h-16 rounded-full object-cover"
+                src={user?.photoURL}
+                alt="profile picture "
+              />
+            ) : (
+              <img className="w-16" src={profile} alt="" />
+            )}
           </button>
 
           <ul
@@ -93,16 +105,21 @@ const {user,userSignout} = useAuth()
             }
           >
             <li>
-              <p className="text-[18px] font-bold text-center">Name: {user?.displayName}</p>
+              <p className="text-[18px] font-bold text-center">
+                Name: {user?.displayName}
+              </p>
             </li>
             <li>
-              <Link className="font-bold text-[16px]" to="/dashboard">Dashboard</Link>
+              <Link className="font-bold text-[16px]" to="/dashboard">
+                Dashboard
+              </Link>
             </li>
             <li>
-              <button className="btn btn-primary my-4" onClick={userSignout}>Logout</button>
+              <button className="btn btn-primary my-4" onClick={userSignout}>
+                Logout
+              </button>
             </li>
           </ul>
-         
         </div>
       </div>
     </div>
