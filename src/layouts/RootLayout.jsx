@@ -9,7 +9,7 @@ const RootLayout = () => {
             <div className='sticky top-0 z-50'>
                 <Navbar/>
             </div>
-            <div className=''>
+            <div className='min-h-[calc(100vh-385px)]'>
                 <Outlet/>
             </div>
         <Footer/>

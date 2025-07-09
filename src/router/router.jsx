@@ -8,6 +8,7 @@ import TermsService from "../pages/tremsService/TremsService";
 import Coupons from "../pages/home/coupons/Coupons";
 import AboutBuilding from "../pages/home/aboutBuilding/AboutBuilding";
 import FAQs from "../pages/faqs/FAQs";
+import Register from "../pages/register/Register";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       {
         path: "login",
         Component: Login,
+      },
+      {
+        path: "register",
+        Component: Register,
       },
     ],
   },

@@ -3,6 +3,7 @@ import { NavLink } from "react-router";
 import Logo from "../logo/Logo";
 import profile from "../../../assets/profile_logo.png";
 const Navbar = () => {
+
   const links = (
     <>
       <li>
