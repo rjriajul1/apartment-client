@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import SocialLogin from "../shared/socialLogin/SocialLogin";
 const Login = () => {
   const { userSignIn } = useAuth();
   const location = useLocation()
@@ -42,7 +43,7 @@ const Login = () => {
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <Lottie
-            style={{ width: "350px" }}
+            style={{ width: "300px" }}
             aria-aria-labelledby="use lottie animation"
             animationData={loginLottie}
             loop={true}
@@ -51,6 +52,11 @@ const Login = () => {
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-md">
           <div className="card-body">
             <h1 className="text-3xl text-center font-bold">Login now!</h1>
+
+            <div className="flex justify-center pt-4">
+              <SocialLogin/>
+            </div>
+              <div className="divider">OR</div>
             <form onSubmit={handleSubmit(onSubmit)} className="fieldset">
               {/* email */}
               <label className="label">Email</label>
