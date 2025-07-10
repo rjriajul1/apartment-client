@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import ApartmentCard from "../apartmentCard/ApartmentCard";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../shared/loading/Loading";
 
 const Apartments = () => {
   // all apartment data
-  const [apartments, setApartments] = useState([]);
+  // const [apartments, setApartments] = useState([]);
 
   // total apartment count
   const [count, setCount] = useState(0);
@@ -23,21 +25,41 @@ const Apartments = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   // page and size ways data load
-  useEffect(() => {
-    const fetchApartment = async () => {
-      try {
+
+  const {data:apartments,refetch,error,isPending} = useQuery({
+    queryKey: ['apartments'],
+    queryFn: async () => {
+        try {
+       
         const res = await axios(
           `${
             import.meta.env.VITE_URL
           }/apartments?page=${currentPage}&size=${itemsPerPage}`
         );
-        setApartments(res?.data);
-      } catch (error) {
+        return res?.data
+        
+      } catch {
         toast.error(error.message);
       }
-    };
-    fetchApartment();
-  }, [currentPage, itemsPerPage]);
+    }
+  })
+
+  // useEffect(() => {
+  //   const fetchApartment = async () => {
+  //     try {
+       
+  //       const res = await axios(
+  //         `${
+  //           import.meta.env.VITE_URL
+  //         }/apartments?page=${currentPage}&size=${itemsPerPage}`
+  //       );
+  //       setApartments(res?.data);
+  //     } catch (error) {
+  //       toast.error(error.message);
+  //     }
+  //   };
+  //   fetchApartment();
+  // }, [currentPage, itemsPerPage]);
 
   // total data count load
   useEffect(() => {
@@ -56,14 +78,15 @@ const Apartments = () => {
 
   const handleItemsPerPage = (e) => {
     const val = parseInt(e.target.value);
-    console.log(val);
-    setItemsPerPage(val);
-    setCurrentPage(0);
+      setItemsPerPage(val);
+      refetch()
+      setCurrentPage(0);
   };
   const handlePrev = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
+    refetch()
 
     // aii vabe korla problem porta hobe
     // setCurrentPage(currentPage - 1)
@@ -73,7 +96,17 @@ const Apartments = () => {
     if (currentPage < pages.length - 1) {
       setCurrentPage(currentPage + 1);
     }
+    refetch()
   };
+
+  const handleCurrentPage = (page) => {
+       setCurrentPage(page)
+       refetch()
+  }
+
+  if(isPending){
+    return <Loading/>
+  }
 
   return (
     <div className=" max-w-[1600px] mx-auto py-20">
@@ -90,14 +123,14 @@ const Apartments = () => {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {apartments?.map((apartment) => (
           <ApartmentCard
+           refetch={refetch}
             key={apartment._id}
             apartment={apartment}
           ></ApartmentCard>
         ))}
       </div>
-      <div className="">
-        <p className="text-center py-10">count page : {currentPage}</p>
-
+      <div className="mt-4">
+        
         <div className="flex justify-center flex-wrap gap-2">
           <button className="btn " onClick={handlePrev}>
             Prev
@@ -107,9 +140,9 @@ const Apartments = () => {
             <button
               className={currentPage === page ? "btn bg-amber-200" : "btn "}
               key={page}
-              onClick={() => setCurrentPage(page)}
+              onClick={() => handleCurrentPage(page)}
             >
-              {page}
+              { page + 1}
             </button>
           ))}
 

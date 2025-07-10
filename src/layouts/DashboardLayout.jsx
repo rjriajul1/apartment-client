@@ -1,16 +1,9 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router";
 import Logo from "../pages/shared/logo/Logo";
-import {
-  FaBoxOpen,
-  FaUserEdit,
- 
-} from "react-icons/fa";
-
+import { FaBoxOpen, FaUserEdit } from "react-icons/fa";
 
 const DashboardLayout = () => {
-
-
   return (
     <div
       data-aos="fade-right"
@@ -60,31 +53,35 @@ const DashboardLayout = () => {
             <Logo></Logo>
           </div>
           <div className="mt-6 ">
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
-                    : "text-xl font-semibold flex items-center gap-2"
-                }
-                to="/dashboard/myParcels"
-              >
-                <FaBoxOpen /> My Parcels
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
-                    : "text-xl font-semibold flex items-center gap-2"
-                }
-                to="/dashboard/profile"
-              >
-                <FaUserEdit /> Update Profile
-              </NavLink>
-            </li>
+            <div className="relative">
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                      : "text-xl font-semibold flex items-center gap-2"
+                  }
+                  to="/dashboard/myParcels"
+                >
+                  <FaBoxOpen /> My Parcels
+                </NavLink>
+              </li>
+              
+            </div>
+            <div className="absolute bottom-24">
+             <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                      : "text-xl font-semibold flex items-center gap-2"
+                  }
+                  to="/dashboard/profile"
+                >
+                  <FaUserEdit /> Profile
+                </NavLink>
+              </li>
+            </div>
           </div>
         </ul>
       </div>

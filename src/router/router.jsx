@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
     element:<PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
     children: [
       
-
+    
      
     ]
     }

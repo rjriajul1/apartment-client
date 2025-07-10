@@ -1,7 +1,47 @@
 import { FaHouseUser, FaMoneyBillWave, FaLayerGroup } from "react-icons/fa";
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
-const ApartmentCard = ({ apartment }) => {
-  const { apartmentImage, floorNo, blockName, apartmentNo, rent } = apartment;
+const ApartmentCard = ({ apartment, refetch }) => {
+  const { apartmentImage, floorNo, blockName, apartmentNo, _id, rent, status } =
+    apartment;
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+  const handleAgreement = async () => {
+    if (!user) {
+      navigate("/login");
+    }
+    const agreementData = {
+      apartmentId: _id,
+      customer_name: user?.displayName,
+      customer_email: user?.email,
+      floor_no: floorNo,
+      block_name: blockName,
+      apartment_no: apartmentNo,
+      rent: rent,
+      status: "pending",
+    };
+
+    try {
+      const res = await axiosSecure.post("/agreement-add", agreementData);
+      if (res?.data?.result?.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your apartment booking requested successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch();
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="rounded-2xl shadow-lg bg-base-100 transition-transform hover:-translate-y-1 hover:shadow-xl duration-300">
@@ -30,12 +70,18 @@ const ApartmentCard = ({ apartment }) => {
 
           <div className="flex items-center gap-1 text-sm text-gray-500">
             <FaMoneyBillWave className="text-green-500" />
-            <span className="text-base font-semibold text-green-600">৳{rent}</span>
+            <span className="text-base font-semibold text-green-600">
+              ৳{rent}
+            </span>
           </div>
         </div>
 
-        <button className="btn btn-sm btn-accent w-full mt-2 rounded-xl">
-          Agreement
+        <button
+          disabled={status === 'requested'}
+          onClick={handleAgreement}
+          className="btn btn-sm btn-accent w-full mt-2 rounded-xl"
+        >
+          {status === "requested" ? "already book" : "Agreement"}
         </button>
       </div>
     </div>
