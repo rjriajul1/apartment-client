@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       {
         path: "apartment",
         Component: Apartments,
-        loader: () => fetch(`${import.meta.env.VITE_ULR}/apartments`)
+        
       },
       {
         path: "coupons",
