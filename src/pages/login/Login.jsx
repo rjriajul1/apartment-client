@@ -8,11 +8,15 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import SocialLogin from "../shared/socialLogin/SocialLogin";
+
+import Loading from "../shared/loading/Loading";
+import { saveUserDb } from "../../api/Utils";
 const Login = () => {
-  const { userSignIn } = useAuth();
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [show,setShow] = useState(false)
+  const { userSignIn} = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -21,9 +25,17 @@ const Login = () => {
   const onSubmit = async (data) => {
     const { email, password } = data;
 
-    userSignIn(email, password)
-      .then((res) => {
+    await userSignIn(email, password)
+      .then(async (res) => {
+        console.log(res.user);
         if (res.user) {
+          // save data db
+          const userData = {
+            name: res?.user?.displayName,
+            email: res?.user?.email,
+            image: res?.user?.photoURL,
+          };
+          await saveUserDb(userData);
           Swal.fire({
             position: "top-center",
             icon: "success",
@@ -31,13 +43,14 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate(location?.state || '/')
+          navigate(location?.state || "/");
         }
       })
       .catch((error) => {
         toast.error(error.message);
       });
   };
+
   return (
     <div className="hero lg:py-30 py-10 ">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -54,9 +67,9 @@ const Login = () => {
             <h1 className="text-3xl text-center font-bold">Login now!</h1>
 
             <div className="flex justify-center pt-4">
-              <SocialLogin/>
+              <SocialLogin />
             </div>
-              <div className="divider">OR</div>
+            <div className="divider">OR</div>
             <form onSubmit={handleSubmit(onSubmit)} className="fieldset">
               {/* email */}
               <label className="label">Email</label>
@@ -73,17 +86,20 @@ const Login = () => {
 
               {/*password*/}
               <label className="label">Password</label>
-             <div className="relative">
-               <input
-                type={show ? 'text' : 'password'}
-                {...register("password", { required: true })}
-                className="input"
-                placeholder="Password"
-              />
-              <div onClick={()=> setShow(!show)} className=" z-50 absolute top-2 right-4">
-                {show ? <IoMdEyeOff size={24} /> : <IoMdEye size={24}/>}
+              <div className="relative">
+                <input
+                  type={show ? "text" : "password"}
+                  {...register("password", { required: true })}
+                  className="input"
+                  placeholder="Password"
+                />
+                <div
+                  onClick={() => setShow(!show)}
+                  className=" z-50 absolute top-2 right-4"
+                >
+                  {show ? <IoMdEyeOff size={24} /> : <IoMdEye size={24} />}
+                </div>
               </div>
-             </div>
 
               {errors?.password && (
                 <p className="text-red-500">{"password is required"}</p>

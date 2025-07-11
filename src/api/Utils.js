@@ -7,3 +7,8 @@ export const imageUpload = async image => {
     return data?.data?.url
 
 }
+
+export const saveUserDb = async user => {
+     await axios.post(`${import.meta.env.VITE_URL}/users-add`,user)
+ 
+}

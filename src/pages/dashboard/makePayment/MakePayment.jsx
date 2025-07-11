@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useAuth } from '../../../hooks/useAuth';
-import { FaMoneyCheckAlt } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useAuth } from "../../../hooks/useAuth";
+import { FaMoneyCheckAlt } from "react-icons/fa";
 
 const MakePayment = () => {
-const [agreements,setAgreements] = useState([])
-const agreement = agreements[0]
+  const [agreements, setAgreements] = useState([]);
+  const agreement = agreements[0];
 
+  const axiosSecure = useAxiosSecure();
+  const [selectedMonth, setSelectedMonth] = useState("");
 
-const axiosSecure = useAxiosSecure()
-const [selectedMonth,setSelectedMonth] = useState("")
+  useEffect(() => {
+    setSelectedMonth(agreement?.month);
+  }, [agreement]);
+  const { user } = useAuth();
+  useEffect(() => {
+    const fetchAgreement = async () => {
+      const res = await axiosSecure.get(`/agreementByEmail/${user?.email}`);
+      setAgreements(res?.data);
+    };
+    fetchAgreement();
+  }, [axiosSecure, user]);
 
-useEffect(()=>{
-    setSelectedMonth(agreement?.month)
-},[agreement])
-const {user} = useAuth()
-    useEffect(()=>{
-      const fetchAgreement = async () => {
-        const res = await axiosSecure.get(`/agreementByEmail/${user?.email}`)
-        setAgreements(res?.data)
-      }
-      fetchAgreement()
-    },[axiosSecure,user])
-    return (
-        <div className="max-w-2xl mx-auto mt-10 bg-base-100 p-8 rounded-2xl shadow-lg border border-gray-200">
+ 
+  return (
+    <div className="max-w-2xl mx-auto mt-10 bg-base-100 p-8 rounded-2xl shadow-lg border border-gray-200">
       <h2 className="text-2xl font-bold mb-2 text-primary flex items-center gap-2">
         <FaMoneyCheckAlt /> Make a Payment
       </h2>
@@ -112,12 +113,16 @@ const {user} = useAuth()
 
         {/* Submit button */}
         <div className="pt-4">
-          <button className="btn btn-primary w-full">Pay Now</button>
+          <button
+            disabled={agreement?.status === "pending"}
+            className="btn btn-primary w-full"
+          >
+            Pay Now
+          </button>
         </div>
       </form>
     </div>
   );
-    
 };
 
 export default MakePayment;

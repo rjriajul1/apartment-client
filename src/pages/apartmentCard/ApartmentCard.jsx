@@ -26,6 +26,7 @@ const ApartmentCard = ({ apartment, refetch }) => {
       apartment_no: apartmentNo,
       rent: rent,
       month,
+      request_date: new Date().toISOString(),
       status: "pending",
     };
 

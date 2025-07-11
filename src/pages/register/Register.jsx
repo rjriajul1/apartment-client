@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router";
 import registerLottie from "../../assets/lottie/register_lottie_file.json";
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
-import { imageUpload } from "../../api/Utils";
+import { imageUpload, saveUserDb } from "../../api/Utils";
 import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+
+import Loading from "../shared/loading/Loading";
 const Register = () => {
   const {
     register,
@@ -25,7 +27,7 @@ const Register = () => {
 
     // save a new user firebase
     createUser(email, password)
-      .then((res) => {
+      .then(async (res) => {
         if (res.user);
         {
           Swal.fire({
@@ -49,11 +51,21 @@ const Register = () => {
           .catch((error) => {
             toast.error(error.message);
           });
+
+        // save user db
+        const userData = {
+          name,
+          email,
+          image: imageURL,
+        };
+       await saveUserDb(userData)
       })
       .catch((error) => {
         toast.error(error.message);
       });
   };
+
+
   return (
     <div className="hero py-10 lg:py-30 ">
       <div className="hero-content flex-col gap-6 lg:flex-row-reverse">
@@ -105,21 +117,24 @@ const Register = () => {
               <label className="label">Password</label>
               <div className="relative">
                 <input
-                type={show ? 'text' : 'password'}
-                {...register("password", {
-                  required: true,
-                  pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-                    message:
-                      "Password must be at least 6 characters with 1 uppercase & 1 lowercase letter",
-                  },
-                })}
-                className="input"
-                placeholder="Password"
-              />
-              <div onClick={()=> setShow(!show)} className=" z-50 absolute top-2 right-4">
-                {show ? <IoMdEyeOff size={24} /> : <IoMdEye size={24}/>}
-              </div>
+                  type={show ? "text" : "password"}
+                  {...register("password", {
+                    required: true,
+                    pattern: {
+                      value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
+                      message:
+                        "Password must be at least 6 characters with 1 uppercase & 1 lowercase letter",
+                    },
+                  })}
+                  className="input"
+                  placeholder="Password"
+                />
+                <div
+                  onClick={() => setShow(!show)}
+                  className=" z-50 absolute top-2 right-4"
+                >
+                  {show ? <IoMdEyeOff size={24} /> : <IoMdEye size={24} />}
+                </div>
               </div>
               {errors?.password && (
                 <p className="text-red-500">{errors?.password?.message}</p>

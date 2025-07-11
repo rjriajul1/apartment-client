@@ -105,12 +105,12 @@ const Navbar = () => {
             }
           >
             <li>
-              <p className="text-[18px] font-bold text-center">
+              <p className="text-xs font-bold text-center">
                 Name: {user?.displayName}
               </p>
             </li>
             <li>
-              <Link className="font-bold text-[16px]" to="/dashboard">
+              <Link className="font-bold text-[16px] btn mt-2" to="/dashboard">
                 Dashboard
               </Link>
             </li>

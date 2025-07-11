@@ -3,14 +3,23 @@ import { useAuth } from "../../../hooks/useAuth";
 import toast from "daisyui/components/toast";
 import { useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { saveUserDb } from "../../../api/Utils";
 
 const SocialLogin = () => {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, user } = useAuth();
+  console.log(user);
   const navigate = useNavigate();
   const location = useLocation();
   const handleGoogle = () => {
     signInWithGoogle()
-      .then(() => {
+      .then(async (res) => {
+        const userData = {
+          name: res?.user?.displayName,
+          email: res?.user?.email,
+          image: res?.user?.photoURL,
+        };
+        await saveUserDb(userData);
+        
         Swal.fire({
           position: "top-center",
           icon: "success",
@@ -20,6 +29,7 @@ const SocialLogin = () => {
         });
         navigate(location.state || "/");
       })
+
       .catch((error) => {
         toast.error(error.message);
       });
