@@ -1,7 +1,16 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router";
 import Logo from "../pages/shared/logo/Logo";
-import { FaBoxOpen, FaUserEdit } from "react-icons/fa";
+import {
+  FaBullhorn,
+  FaFileSignature,
+  FaHistory,
+  FaMoneyCheckAlt,
+  FaRegEdit,
+  FaTicketAlt,
+  FaUserEdit,
+  FaUsersCog,
+} from "react-icons/fa";
 
 const DashboardLayout = () => {
   return (
@@ -54,6 +63,7 @@ const DashboardLayout = () => {
           </div>
           <div className="mt-6 ">
             <div className="relative">
+              {/* member route */}
               <li>
                 <NavLink
                   className={({ isActive }) =>
@@ -61,15 +71,89 @@ const DashboardLayout = () => {
                       ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
                       : "text-xl font-semibold flex items-center gap-2"
                   }
-                  to="/dashboard/myParcels"
+                  to="/dashboard/makePayment"
                 >
-                  <FaBoxOpen /> My Parcels
+                  <FaMoneyCheckAlt /> Make Payment
                 </NavLink>
               </li>
-              
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                      : "text-xl font-semibold flex items-center gap-2"
+                  }
+                  to="/dashboard/paymentHistory"
+                >
+                  <FaHistory /> Payment History
+                </NavLink>
+              </li>
+
+              {/* admin route */}
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                      : "text-xl font-semibold flex items-center gap-2"
+                  }
+                  to="/dashboard/manageMembers"
+                >
+                  <FaUsersCog /> Manage Members
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                      : "text-xl font-semibold flex items-center gap-2"
+                  }
+                  to="/dashboard/makeAnnouncement"
+                >
+                  <FaRegEdit /> Make Announcement
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                      : "text-xl font-semibold flex items-center gap-2"
+                  }
+                  to="/dashboard/agreementRequests"
+                >
+                  <FaFileSignature /> Agreement Requests
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                      : "text-xl font-semibold flex items-center gap-2"
+                  }
+                  to="/dashboard/manageCoupons"
+                >
+                  <FaTicketAlt /> Manage Coupons
+                </NavLink>
+              </li>
             </div>
+            {/* general routes */}
             <div className="absolute bottom-24">
-             <li>
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                      : "text-xl font-semibold flex items-center gap-2"
+                  }
+                  to="/dashboard/announcements"
+                >
+                  <FaBullhorn /> Announcements
+                </NavLink>
+              </li>
+              <li>
                 <NavLink
                   className={({ isActive }) =>
                     isActive
@@ -78,7 +162,8 @@ const DashboardLayout = () => {
                   }
                   to="/dashboard/profile"
                 >
-                  <FaUserEdit /> Profile
+                  <FaUserEdit />
+                  My Profile
                 </NavLink>
               </li>
             </div>
