@@ -15,6 +15,8 @@ const ApartmentCard = ({ apartment, refetch }) => {
     if (!user) {
       navigate("/login");
     }
+    const d = new Date();
+    const month = d.toLocaleString("default", { month: "long" });
     const agreementData = {
       apartmentId: _id,
       customer_name: user?.displayName,
@@ -23,11 +25,16 @@ const ApartmentCard = ({ apartment, refetch }) => {
       block_name: blockName,
       apartment_no: apartmentNo,
       rent: rent,
+      month,
       status: "pending",
     };
 
     try {
       const res = await axiosSecure.post("/agreement-add", agreementData);
+
+      if (res?.data?.status === 200) {
+        return toast.warn(res.data.message);
+      }
       if (res?.data?.result?.insertedId) {
         Swal.fire({
           position: "top-end",
@@ -77,7 +84,7 @@ const ApartmentCard = ({ apartment, refetch }) => {
         </div>
 
         <button
-          disabled={status === 'requested'}
+          disabled={status === "requested"}
           onClick={handleAgreement}
           className="btn btn-sm btn-accent w-full mt-2 rounded-xl"
         >
