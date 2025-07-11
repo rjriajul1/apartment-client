@@ -22,7 +22,7 @@ const DashboardLayout = () => {
 
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="navbar bg-base-300 w-full lg:hidden">
+        <div className="navbar bg-primary w-full lg:hidden">
           <div className="flex-none  lg:hidden">
             <label
               htmlFor="my-drawer-2"
