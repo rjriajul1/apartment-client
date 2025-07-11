@@ -76,7 +76,8 @@ export const router = createBrowserRouter([
     },
     {
       path:'announcements',
-      Component:Announcements
+      Component:Announcements,
+      loader:() =>  fetch(`${import.meta.env.VITE_URL}/announcements`)
 
     },
     // member routes
