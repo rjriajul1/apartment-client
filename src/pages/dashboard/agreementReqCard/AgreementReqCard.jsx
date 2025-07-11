@@ -2,16 +2,47 @@ import axios from "axios";
 import React from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { toast } from "react-toastify";
-const AgreementReqCard = ({ req }) => {
+import Swal from "sweetalert2";
+const AgreementReqCard = ({ req, refetch }) => {
   const handleAccept = async (id) => {
     try {
-      const res = await axios.patch(`${import.meta.env.VITE_URL}/accept/${id}`);
-      console.log(res.data);
+      const res = await axios.patch(
+        `${import.meta.env.VITE_URL}/accept/${id}`,
+        { email: req?.customer_email }
+      );
+      if (res?.data?.modifiedCount) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      refetch();
     } catch (error) {
       toast.error(error.message);
     }
   };
-  const handleReject = (id) => {};
+  const handleReject = async (id) => {
+    try {
+      const res = await axios.patch(
+        `${import.meta.env.VITE_URL}/reject/${id}`
+      )
+      if (res?.data?.modifiedCount) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      refetch();
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="bg-white shadow-md rounded-xl border border-gray-200 p-5 hover:shadow-lg transition">

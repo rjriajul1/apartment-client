@@ -1,27 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
 import AgreementReqCard from "../agreementReqCard/AgreementReqCard";
-
+import {
+  useQuery,
+} from '@tanstack/react-query'
+import Loading from "../../shared/loading/Loading";
 const AgreementRequests = () => {
   const axiosSecure = useAxiosSecure();
-  const [requests, setRequests] = useState([]);
-  useEffect(() => {
-    const fetchRequest = async () => {
-      try {
+
+  const {data:requests,isPending,refetch} = useQuery({
+      queryKey: ['agreementByStatus'],
+      queryFn: async () => {
+         try {
         const res = await axiosSecure.get("agreementByStatus");
-        setRequests(res?.data);
+        return res.data
       } catch (error) {
         toast.error(error.message);
       }
-    };
-    fetchRequest();
-  }, [axiosSecure]);
+      }
+  })
+  if(isPending){
+    return <Loading/>
+  }
+ 
   return (
     <div className="grid gap-6 p-4 sm:grid-cols-2 xl:grid-cols-3">
       {requests?.map((req) => (
-        <AgreementReqCard setRequests={setRequests} req={req} key={req._id}></AgreementReqCard>
+        <AgreementReqCard refetch={refetch}  req={req} key={req._id}></AgreementReqCard>
       ))}
     </div>
   );

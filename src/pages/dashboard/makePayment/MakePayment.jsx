@@ -6,14 +6,14 @@ import { FaMoneyCheckAlt } from "react-icons/fa";
 const MakePayment = () => {
   const [agreements, setAgreements] = useState([]);
   const agreement = agreements[0];
-
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedMonth, setSelectedMonth] = useState("");
 
   useEffect(() => {
     setSelectedMonth(agreement?.month);
   }, [agreement]);
-  const { user } = useAuth();
+
   useEffect(() => {
     const fetchAgreement = async () => {
       const res = await axiosSecure.get(`/agreementByEmail/${user?.email}`);
