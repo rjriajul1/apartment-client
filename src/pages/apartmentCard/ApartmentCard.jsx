@@ -13,7 +13,7 @@ const ApartmentCard = ({ apartment, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const handleAgreement = async () => {
     if (!user) {
-      navigate("/login");
+     return navigate("/login");
     }
     const d = new Date();
     const month = d.toLocaleString("default", { month: "long" });

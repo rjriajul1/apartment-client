@@ -105,9 +105,9 @@ const Navbar = () => {
             }
           >
             <li>
-              <p className="text-xs font-bold text-center">
+              {user && <p className="text-xs font-bold text-center">
                 Name: {user?.displayName}
-              </p>
+              </p>}
             </li>
             <li>
               <Link className="font-bold text-[16px] btn mt-2" to="/dashboard">
@@ -115,7 +115,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <button className="btn btn-primary my-4" onClick={userSignout}>
+              <button disabled={!user} className="btn btn-primary my-4" onClick={userSignout}>
                 Logout
               </button>
             </li>
