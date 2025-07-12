@@ -51,10 +51,11 @@ const Managemembers = () => {
   }
   return (
     <div>
-        {members.length > 0 ? <div className="overflow-x-auto p-4">
       <h2 className="text-2xl font-bold text-primary mb-4 text-center">
         Manage Members
       </h2>
+        {members.length > 0 ? <div className="overflow-x-auto p-4">
+      
       <table className="table table-zebra w-full border">
         <thead className="bg-base-200 text-base font-semibold">
           <tr>

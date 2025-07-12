@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useAuth } from "../../../hooks/useAuth";
 import { FaMoneyCheckAlt } from "react-icons/fa";
+import Loading from "../../shared/loading/Loading";
 
 const MakePayment = () => {
   const [agreements, setAgreements] = useState([]);
@@ -9,18 +10,23 @@ const MakePayment = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [loading,setLoading] = useState(false)
 
   useEffect(() => {
     setSelectedMonth(agreement?.month);
   }, [agreement]);
 
   useEffect(() => {
+    setLoading(true)
     const fetchAgreement = async () => {
       const res = await axiosSecure.get(`/agreementByEmail/${user?.email}`);
       setAgreements(res?.data);
     };
     fetchAgreement();
+    setLoading(false)
   }, [axiosSecure, user]);
+
+
 
  
   return (
@@ -112,14 +118,14 @@ const MakePayment = () => {
         </div>
 
         {/* Submit button */}
-        <div className="pt-4">
+        {loading ? <Loading/>: <div className="pt-4">
           <button
-            disabled={agreement?.status === "pending"}
+            disabled={agreement?.status === "reject" || agreement?.status === 'pending'}
             className="btn btn-primary w-full"
           >
             Pay Now
           </button>
-        </div>
+        </div>}
       </form>
     </div>
   );

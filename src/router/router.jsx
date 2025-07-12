@@ -72,7 +72,7 @@ export const router = createBrowserRouter([
       // general routes
     {
       path: 'profile',
-      Component:Profile
+      Component:Profile,
     },
     {
       path:'announcements',
