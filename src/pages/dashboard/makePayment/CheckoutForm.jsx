@@ -6,7 +6,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
-const CheckoutForm = ({ orderData, rent,status }) => {
+const CheckoutForm = ({ orderData, rent, status }) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
@@ -14,8 +14,7 @@ const CheckoutForm = ({ orderData, rent,status }) => {
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const { user } = useAuth();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchClientSecret = async () => {
@@ -53,7 +52,7 @@ const CheckoutForm = ({ orderData, rent,status }) => {
       return;
     } else {
       setError(null);
-
+      console.log(paymentMethod);
       // cutting money
 
       const result = await stripe.confirmCardPayment(clientSecret, {
@@ -82,7 +81,7 @@ const CheckoutForm = ({ orderData, rent,status }) => {
               showConfirmButton: false,
               timer: 1500,
             });
-            navigate('/dashboard/paymentHistory')
+            navigate("/dashboard/paymentHistory");
           }
         } catch (error) {
           setError(error.message);
@@ -116,7 +115,9 @@ const CheckoutForm = ({ orderData, rent,status }) => {
         <button
           className="btn btn-primary w-full mt-6"
           type="submit"
-          disabled={!stripe || processing || status === "pending" || status === 'reject'}
+          disabled={
+            !stripe || processing || status === "pending" || status === "reject"
+          }
         >
           {processing ? <ClipLoader size={22} /> : `Pay ${rent} Tk`}
         </button>

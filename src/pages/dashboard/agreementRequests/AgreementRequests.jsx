@@ -26,10 +26,12 @@ const AgreementRequests = () => {
   }
  
   return (
-    <div className="grid gap-6 p-4 sm:grid-cols-2 xl:grid-cols-3">
+    <div>
+      {requests.length > 0 ? <div className="grid gap-6 p-4 sm:grid-cols-2 xl:grid-cols-3">
       {requests?.map((req) => (
         <AgreementReqCard refetch={refetch}  req={req} key={req._id}></AgreementReqCard>
       ))}
+    </div> : <p className="py-6 text-center font-bold text-2xl">not found any requests now !!</p>}
     </div>
   );
 };

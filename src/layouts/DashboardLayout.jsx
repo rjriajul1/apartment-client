@@ -11,8 +11,18 @@ import {
   FaUserEdit,
   FaUsersCog,
 } from "react-icons/fa";
+import useRole from "../hooks/useRole";
+import Loading from "../pages/shared/loading/Loading";
+import { toast } from "react-toastify";
 
 const DashboardLayout = () => {
+  const { role, isPending, isError,} = useRole();
+  if (isPending) {
+    return <Loading />;
+  }
+  if (isError) {
+    toast.error(isError.message);
+  }
   return (
     <div
       data-aos="fade-right"
@@ -64,80 +74,88 @@ const DashboardLayout = () => {
           <div className="mt-6 ">
             <div className="relative">
               {/* member route */}
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
-                      : "text-xl font-semibold flex items-center gap-2"
-                  }
-                  to="/dashboard/makePayment"
-                >
-                  <FaMoneyCheckAlt /> Make Payment
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
-                      : "text-xl font-semibold flex items-center gap-2"
-                  }
-                  to="/dashboard/paymentHistory"
-                >
-                  <FaHistory /> Payment History
-                </NavLink>
-              </li>
+              {role === "member" && (
+                <>
+                  <li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                          : "text-xl font-semibold flex items-center gap-2"
+                      }
+                      to="/dashboard/makePayment"
+                    >
+                      <FaMoneyCheckAlt /> Make Payment
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                          : "text-xl font-semibold flex items-center gap-2"
+                      }
+                      to="/dashboard/paymentHistory"
+                    >
+                      <FaHistory /> Payment History
+                    </NavLink>
+                  </li>
+                </>
+              )}
 
               {/* admin route */}
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
-                      : "text-xl font-semibold flex items-center gap-2"
-                  }
-                  to="/dashboard/manageMembers"
-                >
-                  <FaUsersCog /> Manage Members
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
-                      : "text-xl font-semibold flex items-center gap-2"
-                  }
-                  to="/dashboard/makeAnnouncement"
-                >
-                  <FaRegEdit /> Make Announcement
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
-                      : "text-xl font-semibold flex items-center gap-2"
-                  }
-                  to="/dashboard/agreementRequests"
-                >
-                  <FaFileSignature /> Agreement Requests
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
-                      : "text-xl font-semibold flex items-center gap-2"
-                  }
-                  to="/dashboard/manageCoupons"
-                >
-                  <FaTicketAlt /> Manage Coupons
-                </NavLink>
-              </li>
+              {role === "admin" && (
+                <>
+                  <li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                          : "text-xl font-semibold flex items-center gap-2"
+                      }
+                      to="/dashboard/manageMembers"
+                    >
+                      <FaUsersCog /> Manage Members
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                          : "text-xl font-semibold flex items-center gap-2"
+                      }
+                      to="/dashboard/makeAnnouncement"
+                    >
+                      <FaRegEdit /> Make Announcement
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                          : "text-xl font-semibold flex items-center gap-2"
+                      }
+                      to="/dashboard/agreementRequests"
+                    >
+                      <FaFileSignature /> Agreement Requests
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-blue-500 underline text-xl font-semibold flex items-center gap-2"
+                          : "text-xl font-semibold flex items-center gap-2"
+                      }
+                      to="/dashboard/manageCoupons"
+                    >
+                      <FaTicketAlt /> Manage Coupons
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </div>
             {/* general routes */}
             <div className="absolute bottom-24">

@@ -19,6 +19,8 @@ import Managemembers from "../pages/dashboard/manageMembers/Managemembers";
 import MakeAnnouncement from "../pages/dashboard/makeAnnouncement/MakeAnnouncement";
 import AgreementRequests from "../pages/dashboard/agreementRequests/AgreementRequests";
 import ManageCoupons from "../pages/dashboard/manageCoupons/ManageCoupons";
+import AdminRoutes from "../routes/AdminRoutes";
+import MemberRoutes from "../routes/MemberRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -83,28 +85,28 @@ export const router = createBrowserRouter([
     // member routes
     {
       path:'makePayment',
-      Component:MakePayment
+      element:<MemberRoutes><MakePayment></MakePayment></MemberRoutes>
     },
     {
       path:'paymentHistory',
-      Component:PaymentHistory
+      element: <MemberRoutes><PaymentHistory></PaymentHistory></MemberRoutes>
     },
     // admin routes
     {
       path:'manageMembers',
-      Component:Managemembers
+      element: <AdminRoutes><Managemembers></Managemembers></AdminRoutes>
     },
     {
       path:'makeAnnouncement',
-      Component:MakeAnnouncement
+      element:<AdminRoutes><MakeAnnouncement></MakeAnnouncement></AdminRoutes>
     },
     {
       path:'agreementRequests',
-      Component:AgreementRequests
+      element:<AdminRoutes><AgreementRequests></AgreementRequests></AdminRoutes>
     },
     {
       path:'manageCoupons',
-      Component:ManageCoupons
+      element:<AdminRoutes><ManageCoupons></ManageCoupons></AdminRoutes>
     }
     
     ]
