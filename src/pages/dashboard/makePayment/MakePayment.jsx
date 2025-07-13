@@ -141,7 +141,7 @@ const MakePayment = () => {
         ) : (
           <div className="pt-4">
             <Elements stripe={stripePromise}>
-              <CheckoutForm rent={agreements?.rent} orderData={orderData} />
+              <CheckoutForm status={agreements?.status} rent={agreements?.rent} orderData={orderData} />
             </Elements>
           </div>
         )}
