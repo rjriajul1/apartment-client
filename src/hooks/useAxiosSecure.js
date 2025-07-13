@@ -9,8 +9,7 @@ const useAxiosSecure = () => {
   axiosSecure.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${user?.accessToken}`;
     return config;
-});
+  });
   return axiosSecure;
 };
-
 export default useAxiosSecure;
