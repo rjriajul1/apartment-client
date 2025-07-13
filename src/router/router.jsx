@@ -15,12 +15,13 @@ import Profile from "../pages/dashboard/profile/Profile";
 import Announcements from "../pages/dashboard/announcements/Announcements";
 import MakePayment from "../pages/dashboard/makePayment/MakePayment";
 import PaymentHistory from "../pages/dashboard/paymentHistory/PaymentHistory";
-import Managemembers from "../pages/dashboard/manageMembers/Managemembers";
 import MakeAnnouncement from "../pages/dashboard/makeAnnouncement/MakeAnnouncement";
 import AgreementRequests from "../pages/dashboard/agreementRequests/AgreementRequests";
 import ManageCoupons from "../pages/dashboard/manageCoupons/ManageCoupons";
 import AdminRoutes from "../routes/AdminRoutes";
 import MemberRoutes from "../routes/MemberRoutes";
+import Managemembers from "../pages/dashboard/manageMembers/ManageMembers";
+import AdminProfile from "../pages/dashboard/adminProfile/AdminProfile";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
     {
       path: 'profile',
       Component:Profile,
+    },
+    {
+     path:'adminProfile',
+     Component:AdminProfile
     },
     {
       path:'announcements',

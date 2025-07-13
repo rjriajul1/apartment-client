@@ -30,7 +30,7 @@ const Managemembers = () => {
       const res = await axios.patch(
         `${import.meta.env.VITE_URL}/updateRole/${email}`
       );
-      console.log(res.data);
+
       if (res?.data?.modifiedCount) {
         Swal.fire({
           position: "top-center",

@@ -5,7 +5,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
-const ApartmentCard = ({ apartment, refetch }) => {
+const ApartmentCard = ({ apartment, setCurrentPage }) => {
   const { apartmentImage, floorNo, blockName, apartmentNo, _id, rent, status } =
     apartment;
   const { user } = useAuth();
@@ -44,7 +44,7 @@ const ApartmentCard = ({ apartment, refetch }) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        refetch();
+        setCurrentPage()
       }
     } catch (error) {
       toast.error(error.message);

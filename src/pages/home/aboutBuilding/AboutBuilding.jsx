@@ -1,67 +1,37 @@
 const AboutBuilding = () => {
   return (
-    <section className="bg-base-100 py-20 px-4 md:px-10 lg:px-20 text-base-content">
-      <div className="max-w-[1600px] mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl  font-bold text-primary mb-4">
-          About Apartment Manager
-        </h2>
-        <p className="text-lg  text-secondary mb-10">
-          How this platform helps you manage properties efficiently
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-          {/* Card 1 */}
-          <div className="bg-gradient-to-br 
-              from-[#D6F4F0] to-[#B3EAE3] 
-              hover:from-primary hover:to-[#1F7C73] 
-              transition-all duration-500 ease-in-out 
-              text-gray-800 hover:text-white 
-              rounded-2xl p-6 shadow-md  hover:scale-105">
-            <h3 className="text-xl font-semibold mb-2">Track Apartments</h3>
-            <p>
-              Add, update, and monitor all your apartment units in one place. Easily manage availability, rent status, and maintenance requests.
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-gradient-to-br 
-              from-[#D6F4F0] to-[#B3EAE3] 
-              hover:from-primary hover:to-[#1F7C73] 
-              transition-all duration-500 ease-in-out 
-              text-gray-800 hover:text-white 
-              rounded-2xl p-6 shadow-md hover:scale-105 ">
-            <h3 className="text-xl font-semibold mb-2">Manage Residents</h3>
-            <p>
-              Keep resident information organized. From lease details to communication, everything stays up-to-date and accessible.
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-gradient-to-br 
-              from-[#D6F4F0] to-[#B3EAE3] 
-              hover:from-primary hover:to-[#1F7C73] 
-              transition-all duration-500 ease-in-out 
-              text-gray-800 hover:text-white 
-              rounded-2xl p-6 shadow-md hover:scale-105">
-            <h3 className="text-xl font-semibold mb-2">Handle Payments</h3>
-            <p>
-              Track rent collection, payment history, and dues with ease. Generate reports and send reminders — all from your dashboard.
-            </p>
-          </div>
-          {/* Card 4 */}
-          <div className="bg-gradient-to-br 
-              from-[#D6F4F0] to-[#B3EAE3] 
-              hover:from-primary hover:to-[#1F7C73] 
-              transition-all duration-500 ease-in-out 
-              text-gray-800 hover:text-white 
-              rounded-2xl p-6 shadow-md hover:scale-105">
-            <h3 className="text-xl font-semibold mb-2">Handle Payments</h3>
-            <p>
-              Track rent collection, payment history, and dues with ease. Generate reports and send reminders — all from your dashboard.
-            </p>
-          </div>
-        </div>
-      </div>
+    <section className="max-w-[1600px] mx-auto py-20 px-4  ">
+      <h2 className="text-4xl font-bold text-center text-primary mb-4">
+        About the Building
+      </h2>
+      <p className="text-lg leading-8 text-gray-700 text-justify bg-base-100 shadow-md rounded-xl p-6">
+        Nestled in the heart of the city, our apartment building offers the
+        perfect blend of comfort, security, and modern living. With{" "}
+        <span className="font-semibold text-primary">
+          well-planned architecture
+        </span>{" "}
+        and high-end amenities, each apartment provides a peaceful escape from
+        the bustling outside world. The building consists of{" "}
+        <span className="font-medium">multiple floors and blocks</span>,
+        ensuring diverse apartment options for both small and large families.
+        <br />
+        <br />
+        Residents enjoy{" "}
+        <span className="font-medium text-secondary">24/7 security</span>,
+        high-speed internet, lift access, and a dedicated maintenance team. The
+        rooftop offers a stunning view of the skyline and is a common area for
+        community gatherings. With an integrated digital management system,
+        tenants can pay rent, view notices, and manage requests directly from
+        this platform.
+        <br />
+        <br />
+        Our vision is to provide a{" "}
+        <span className="italic text-accent">
+          safe, efficient, and community-driven living experience
+        </span>
+        . Whether you're a tenant or a building administrator, this platform
+        simplifies daily apartment tasks with ease and elegance.
+      </p>
     </section>
   );
 };
