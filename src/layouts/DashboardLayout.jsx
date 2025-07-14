@@ -213,7 +213,7 @@ const DashboardLayout = () => {
                       to="/dashboard/adminProfile"
                     >
                       <FaUserEdit />
-                      My Profile
+                      Admin Profile
                     </NavLink>
                   </li>
                 )

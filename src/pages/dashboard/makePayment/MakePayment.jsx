@@ -52,7 +52,7 @@ const MakePayment = () => {
     data: coupon,
   } = useQuery({
     queryKey: ["couponsCode", couponCode],
-    enabled: !!couponCode,
+    // enabled: !!couponCode,
     queryFn: async () => {
       const res = await axios.get(
         `${import.meta.env.VITE_URL}/coupon-code?code=${couponCode}`

@@ -7,6 +7,7 @@ import { useLoaderData } from 'react-router';
 
 const Home = () => {
     const coupons = useLoaderData()
+ 
    
     return (
         <div>

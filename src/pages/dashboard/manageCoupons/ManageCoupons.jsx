@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { FaPlus} from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Loading from "../../shared/loading/Loading";
@@ -9,19 +9,20 @@ import { useState } from "react";
 const ManageCoupons = () => {
   const [processing, setProcessing] = useState(false);
 
-
-  const {data:coupons,refetch,isPending} = useQuery({
-    queryKey: ['coupon'],
+  const {
+    data: coupons,
+    refetch,
+    isPending,
+  } = useQuery({
+    queryKey: ["coupon"],
     queryFn: async () => {
-        const {data} = await axios.get(`${import.meta.env.VITE_URL}/coupons`)
-      return data
-    }
-    
-  })
-
+      const { data } = await axios.get(`${import.meta.env.VITE_URL}/coupons`);
+      return data;
+    },
+  });
 
   const handleSubmit = async (e) => {
-    setProcessing(true)
+    setProcessing(true);
     e.preventDefault();
     const form = e.target;
     const code = form.code.value;
@@ -42,23 +43,39 @@ const ManageCoupons = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        refetch()
+        refetch();
       }
     } catch (error) {
       toast.error(error.message);
-    }finally{
-      setProcessing(false)
+    } finally {
+      setProcessing(false);
     }
-   
+
     // Close modal
     document.getElementById("add_coupon_modal").checked = false;
     form.reset();
   };
-  if(isPending){
-    return <Loading/>
+  if (isPending) {
+    return <Loading />;
   }
+
+  const handleDelete = async (id) => {
+    const res = await axios.delete(
+      `${import.meta.env.VITE_URL}/coupon-delete/${id}`
+    );
+    if (res?.data?.deletedCount) {
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: " successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      refetch();
+    }
+  };
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="p-6 max-6-3xl mx-auto">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Manage Coupons </h2>
         <label htmlFor="add_coupon_modal" className="btn btn-primary">
@@ -74,6 +91,7 @@ const ManageCoupons = () => {
               <th>Coupon Code</th>
               <th>Discount (%)</th>
               <th className="text-center">Description</th>
+              <th className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -84,6 +102,15 @@ const ManageCoupons = () => {
                 <td>{coupon.discount}%</td>
                 <td className="whitespace-nowrap overflow-hidden">
                   {coupon.description}
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleDelete(coupon._id)}
+                    className="btn btn-sm  flex items-center gap-2"
+                  >
+                    <FaTrash color="red" />
+                    Remove
+                  </button>
                 </td>
               </tr>
             ))}
@@ -125,7 +152,11 @@ const ManageCoupons = () => {
               required
             />
             <div className="modal-action">
-              <button disabled={processing} type="submit" className="btn btn-primary">
+              <button
+                disabled={processing}
+                type="submit"
+                className="btn btn-primary"
+              >
                 Submit
               </button>
               <label htmlFor="add_coupon_modal" className="btn">

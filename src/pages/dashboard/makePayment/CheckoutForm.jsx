@@ -22,7 +22,7 @@ const CheckoutForm = ({ orderData, status,coupon,rent }) => {
  const intialTK = parseFloat(rent);
 
  const discountAmount = intialTK * (coupon?.discount / 100)
- const finalAmount = intialTK - discountAmount;
+ const finalAmount = intialTK - discountAmount || intialTK;
  
 
   useEffect(() => {
