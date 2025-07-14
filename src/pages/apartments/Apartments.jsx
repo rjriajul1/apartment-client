@@ -2,60 +2,36 @@ import React, { useEffect, useState } from "react";
 import ApartmentCard from "../apartmentCard/ApartmentCard";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import { useQuery } from "@tanstack/react-query";
-import Loading from "../shared/loading/Loading";
 
 const Apartments = () => {
-  // all apartment data
+  // State to hold apartment data fetched from backend
   const [apartments, setApartments] = useState([]);
 
-  // total apartment count
+  // State to hold total apartment count (used for pagination)
   const [count, setCount] = useState(0);
 
-  // per page data show
+  // State to control how many items are shown per page
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  // current page number
+  // State to track the current page number
   const [currentPage, setCurrentPage] = useState(0);
 
-  // how many page calculated by the total data and perPage
+  // States for rent range filtering
+  const [minRent, setMinRent] = useState("");
+  const [maxRent, setMaxRent] = useState("");
+
+  // Calculate total number of pages
   const numberOfPages = Math.ceil(count / itemsPerPage);
 
-  // page array ta converted
+  // Create an array of page numbers
   const pages = [...Array(numberOfPages).keys()];
 
-  // page and size ways data load
-
-  // const {
-  //   data: apartments,
-  //   refetch,
-  //   error,
-  //   isPending,
-  // } = useQuery({
-  //   queryKey: ["apartments"],
-  //   queryFn: async () => {
-  //     try {
-  //       const res = await axios(
-  //         `${
-  //           import.meta.env.VITE_URL
-  //         }/apartments?page=${currentPage}&size=${itemsPerPage}`
-  //       );
-      
-  //       return res?.data;
-  //     } catch {
-  //       toast.error(error.message);
-  //     }
-  //   },
-  // });
-
+  // Fetch paginated apartment data from backend
   useEffect(() => {
     const fetchApartment = async () => {
       try {
-
         const res = await axios(
-          `${
-            import.meta.env.VITE_URL
-          }/apartments?page=${currentPage}&size=${itemsPerPage}`
+          `${import.meta.env.VITE_URL}/apartments?page=${currentPage}&size=${itemsPerPage}`
         );
         setApartments(res?.data);
       } catch (error) {
@@ -65,7 +41,7 @@ const Apartments = () => {
     fetchApartment();
   }, [currentPage, itemsPerPage]);
 
-  // total data count load
+  // Fetch total apartment count for pagination
   useEffect(() => {
     const fetchApartmentCount = async () => {
       try {
@@ -80,41 +56,39 @@ const Apartments = () => {
     fetchApartmentCount();
   }, []);
 
+  // Handle per page change
   const handleItemsPerPage = (e) => {
     const val = parseInt(e.target.value);
-    // refetch();
     setItemsPerPage(val);
-    setCurrentPage(0);
+    setCurrentPage(0); // reset to page 0
   };
+
+  // Go to previous page
   const handlePrev = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-    // refetch();
-
-    // aii vabe korla problem porta hobe
-    // setCurrentPage(currentPage - 1)
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
+  // Go to next page
   const handleNext = () => {
-    if (currentPage < pages.length - 1) {
-      setCurrentPage(currentPage + 1);
-    }
-    // refetch();
+    if (currentPage < pages.length - 1) setCurrentPage(currentPage + 1);
   };
 
+  // Jump to selected page
   const handleCurrentPage = (page) => {
     setCurrentPage(page);
-    // refetch();
   };
 
-  // if (isPending) {
-  //   return <Loading />;
-  // }
+  // Filter apartments based on rent range (client-side filtering)
+  const filteredApartments = apartments.filter((apt) => {
+    const min = parseInt(minRent) || 0;
+    const max = parseInt(maxRent) || Infinity;
+    return apt.rent >= min && apt.rent <= max;
+  });
 
   return (
-    <div className=" max-w-[1600px] mx-auto py-20">
-      <div className="text-center mb-16">
+    <div className="max-w-[1600px] mx-auto py-20 px-4">
+      {/* Section Title */}
+      <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-primary">
           Available Apartments for Rent
         </h2>
@@ -124,47 +98,79 @@ const Apartments = () => {
           click away!
         </p>
       </div>
+
+      {/* Rent filter input section */}
+      <div className="flex flex-wrap justify-center gap-4 mb-10">
+        <input
+          type="number"
+          placeholder="Min Rent"
+          value={minRent}
+          onChange={(e) => setMinRent(e.target.value)}
+          className="input input-bordered w-36"
+        />
+        <input
+          type="number"
+          placeholder="Max Rent"
+          value={maxRent}
+          onChange={(e) => setMaxRent(e.target.value)}
+          className="input input-bordered w-36"
+        />
+        <button
+          className="btn btn-outline btn-sm"
+          onClick={() => {
+            setMinRent("");
+            setMaxRent("");
+          }}
+        >
+          Clear Filter
+        </button>
+      </div>
+
+      {/* Apartment Cards Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {apartments?.map((apartment) => (
+        {filteredApartments?.map((apartment) => (
           <ApartmentCard
-            // refetch={refetch}
             setCurrentPage={setCurrentPage}
             key={apartment._id}
             apartment={apartment}
-          ></ApartmentCard>
+          />
         ))}
       </div>
-      <div className="mt-4">
-        <div className="flex justify-center flex-wrap gap-2">
-          <button className="btn " onClick={handlePrev}>
-            Prev
-          </button>
 
-          {pages?.map((page) => (
-            <button
-              className={currentPage === page ? "btn bg-amber-200" : "btn "}
-              key={page}
-              onClick={() => handleCurrentPage(page)}
-            >
-              {page + 1}
-            </button>
-          ))}
+      {/* Pagination and items-per-page controller */}
+      <div className="mt-10 flex justify-center items-center gap-2 flex-wrap">
+        <button className="btn" onClick={handlePrev}>
+          Prev
+        </button>
 
-          <button className="btn" onClick={handleNext}>
-            Next
-          </button>
-
-          <select
-            className=" outline rounded-md p-2"
-            value={itemsPerPage}
-            onChange={handleItemsPerPage}
+        {pages.map((page) => (
+          <button
+            key={page}
+            onClick={() => handleCurrentPage(page)}
+            className={
+              currentPage === page
+                ? "btn bg-primary text-white"
+                : "btn btn-outline"
+            }
           >
-            <option value="5">6</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-          </select>
-        </div>
+            {page + 1}
+          </button>
+        ))}
+
+        <button className="btn" onClick={handleNext}>
+          Next
+        </button>
+
+        {/* Items per page dropdown */}
+        <select
+          className="outline rounded-md p-2"
+          value={itemsPerPage}
+          onChange={handleItemsPerPage}
+        >
+          <option value="6">6</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
       </div>
     </div>
   );

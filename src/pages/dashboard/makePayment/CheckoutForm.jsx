@@ -25,7 +25,6 @@ const CheckoutForm = ({ orderData, status,coupon,rent }) => {
  const finalAmount = intialTK - discountAmount;
  
 
-
   useEffect(() => {
     const fetchClientSecret = async () => {
       const res = await axiosSecure.post("/create-payment-intent", {
