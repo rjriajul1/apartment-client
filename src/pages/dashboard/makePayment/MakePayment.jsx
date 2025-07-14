@@ -6,6 +6,8 @@ import Loading from "../../shared/loading/Loading";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 const MakePayment = () => {
@@ -15,13 +17,13 @@ const MakePayment = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState({});
+  const [couponCode, setCouponCode] = useState("");
 
   useEffect(() => {
     if (agreements || user) {
       setOrderData({
         apartmentId: agreements?._id,
         apartment_no: agreements.apartment_no,
-        amount: agreements?.rent,
         block_name: agreements.block_name,
         floor_no: agreements?.floor_no,
         month: selectedMonth,
@@ -31,7 +33,6 @@ const MakePayment = () => {
       });
     }
   }, [agreements, selectedMonth, user]);
-
 
   useEffect(() => {
     setSelectedMonth(agreements?.month);
@@ -46,6 +47,26 @@ const MakePayment = () => {
     fetchAgreement();
     setLoading(false);
   }, [axiosSecure, user]);
+
+  const {
+    data: coupon,
+  } = useQuery({
+    queryKey: ["couponsCode", couponCode],
+    enabled: !!couponCode,
+    queryFn: async () => {
+      const res = await axios.get(
+        `${import.meta.env.VITE_URL}/coupon-code?code=${couponCode}`
+      );
+      return res.data;
+    },
+  });
+
+  const handleCoupon = (e) => {
+    setCouponCode("");
+    e.preventDefault();
+    const code = e.target.code.value;
+    setCouponCode(code);
+  };
 
   return (
     <div className="max-w-2xl mx-auto mt-10 bg-base-100 p-8 rounded-2xl shadow-lg border border-gray-200">
@@ -133,6 +154,17 @@ const MakePayment = () => {
               ))}
             </select>
           </div>
+          <form className="grid md:grid-cols-2 gap-2" onSubmit={handleCoupon}>
+            <input
+              name="code"
+              className="border p-2 rounded-md"
+              placeholder="apply coupon code"
+              type="text"
+            />
+            <button type="submit" className="btn ">
+              Add Coupon
+            </button>
+          </form>
         </div>
 
         {/* Submit button */}
@@ -141,7 +173,12 @@ const MakePayment = () => {
         ) : (
           <div className="pt-4">
             <Elements stripe={stripePromise}>
-              <CheckoutForm status={agreements?.status} rent={agreements?.rent} orderData={orderData} />
+              <CheckoutForm
+                coupon={coupon}
+                rent={agreements?.rent}
+                status={agreements?.status}
+                orderData={orderData}
+              />
             </Elements>
           </div>
         )}

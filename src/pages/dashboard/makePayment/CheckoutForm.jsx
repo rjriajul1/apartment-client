@@ -6,25 +6,35 @@ import { useAuth } from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
-const CheckoutForm = ({ orderData, rent, status }) => {
+
+
+const CheckoutForm = ({ orderData, status,coupon,rent }) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
+  
   const { user } = useAuth();
   const navigate = useNavigate();
+
+ const intialTK = parseFloat(rent);
+
+ const discountAmount = intialTK * (coupon?.discount / 100)
+ const finalAmount = intialTK - discountAmount;
+ 
+
 
   useEffect(() => {
     const fetchClientSecret = async () => {
       const res = await axiosSecure.post("/create-payment-intent", {
-        agreementId: orderData?.apartmentId,
+      amount: finalAmount,
       });
       setClientSecret(res?.data?.clientSecret);
     };
     fetchClientSecret();
-  }, [axiosSecure, orderData]);
+  }, [axiosSecure,finalAmount]);
 
   const handleSubmit = async (event) => {
     setProcessing(true);
@@ -71,6 +81,7 @@ const CheckoutForm = ({ orderData, rent, status }) => {
 
       if (result?.paymentIntent.status === "succeeded") {
         orderData.transactionId = result?.paymentIntent?.id;
+        orderData.amount = finalAmount;
         try {
           const { data } = await axiosSecure.post("/payment", orderData);
           if (data?.insertedId) {
@@ -119,7 +130,7 @@ const CheckoutForm = ({ orderData, rent, status }) => {
             !stripe || processing || status === "pending" || status === "reject"
           }
         >
-          {processing ? <ClipLoader size={22} /> : `Pay ${rent} Tk`}
+          {processing ? <ClipLoader size={22} /> : `Pay ${finalAmount || rent} Tk`}
         </button>
       </form>
     </div>
