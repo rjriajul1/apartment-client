@@ -36,11 +36,11 @@ const Footer = () => {
                 Coupons
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/contact" className="hover:text-primary">
                 Contact
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
 

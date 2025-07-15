@@ -114,7 +114,7 @@ const AdminProfile = () => {
         <img
           src={image}
           alt="Admin"
-          className="w-20 h-20 rounded-full border-4 border-primary"
+          className="w-20 h-20 object-cover rounded-full border-4 border-primary"
         />
         <div>
           <h2 className="text-3xl font-bold flex items-center gap-2">

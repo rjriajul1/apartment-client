@@ -6,7 +6,7 @@ A modern web application for managing apartment-related tasks such as rent colle
 
 ## 🌐 Live Site
 
-🔗 [Visit the Live Website](https://your-live-site-url.com)
+🔗 [Visit the Live Website](https://apartment-management-system.netlify.app/)
 
 ---
 
@@ -72,11 +72,11 @@ This project is designed to simplify apartment management by offering a centrali
 
 ```bash
 # clone the repo
-git clone https://github.com/your-username/apartment-management.git
-cd apartment-management
+#git clone https://github.com/your-username/apartment-management.git
+#cd apartment-management
 
 # install dependencies
-npm install
+#npm install
 
 # start the frontend
-npm run dev
+#npm run dev
