@@ -26,13 +26,15 @@ const CheckoutForm = ({ orderData, status,coupon,rent }) => {
  
 
   useEffect(() => {
-    const fetchClientSecret = async () => {
+    if(finalAmount > 0){
+      const fetchClientSecret = async () => {
       const res = await axiosSecure.post("/create-payment-intent", {
       amount: finalAmount,
       });
       setClientSecret(res?.data?.clientSecret);
     };
     fetchClientSecret();
+    }
   }, [axiosSecure,finalAmount]);
 
   const handleSubmit = async (event) => {
