@@ -76,6 +76,7 @@ const ManageCoupons = () => {
   };
   return (
     <div className="p-6 max-6-3xl mx-auto">
+      <title>Dashboard || Manage Coupons</title>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Manage Coupons </h2>
         <label htmlFor="add_coupon_modal" className="btn btn-primary">

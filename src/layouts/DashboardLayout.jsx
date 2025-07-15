@@ -28,6 +28,7 @@ const DashboardLayout = () => {
       data-aos="fade-right"
       className="drawer lg:drawer-open max-w-[1600px] mx-auto lg:px-4"
     >
+      <title>Dashboard</title>
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex flex-col">

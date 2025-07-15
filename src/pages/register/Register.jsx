@@ -68,6 +68,7 @@ const Register = () => {
 
   return (
     <div className="hero py-10 lg:py-30 ">
+      <title>Register</title>
       <div className="hero-content flex-col gap-6 lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <Lottie

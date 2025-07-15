@@ -51,6 +51,7 @@ const Managemembers = () => {
   }
   return (
     <div>
+      <title>Dashboard || Manage Members</title>
       <h2 className="text-2xl font-bold text-primary mb-4 text-center">
         Manage Members
       </h2>

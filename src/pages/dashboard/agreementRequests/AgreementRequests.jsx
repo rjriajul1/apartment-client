@@ -27,6 +27,7 @@ const AgreementRequests = () => {
  
   return (
     <div>
+      <title>Dashboard || Agreement Requests</title>
       {requests.length > 0 ? <div className="grid gap-6 p-4 sm:grid-cols-2 xl:grid-cols-3">
       {requests?.map((req) => (
         <AgreementReqCard refetch={refetch}  req={req} key={req._id}></AgreementReqCard>

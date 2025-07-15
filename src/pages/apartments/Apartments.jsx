@@ -87,6 +87,7 @@ const Apartments = () => {
 
   return (
     <div className="max-w-[1600px] mx-auto py-20 px-4">
+      <title>Apartments</title>
       {/* Section Title */}
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-primary">

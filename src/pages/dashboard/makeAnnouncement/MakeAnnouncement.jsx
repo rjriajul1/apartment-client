@@ -39,6 +39,7 @@ const MakeAnnouncement = () => {
 
   return (
     <div className="max-w-2xl mx-auto bg-base-100 p-8 rounded-2xl shadow-md border mt-8">
+      <title>Dashboard || Make Announcement</title>
       <h2 className="text-2xl font-bold flex items-center gap-2 text-primary mb-2">
         <FaBullhorn /> Make an Announcement
       </h2>

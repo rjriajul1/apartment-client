@@ -11,6 +11,7 @@ const Home = () => {
    
     return (
         <div>
+            <title>Home</title>
             <Banner/>
             <AboutBuilding/>
             <Coupons coupons={coupons}/>

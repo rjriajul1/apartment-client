@@ -24,6 +24,7 @@ const PaymentHistory = () => {
   }, [axiosSecure, user]);
   return (
     <div className="overflow-x-auto p-6">
+      <title>Dashboard || Payment History</title>
       <h2 className="text-3xl font-bold text-primary mb-6 text-center flex items-center justify-center gap-2">
         <FaReceipt /> My Payment History
       </h2>

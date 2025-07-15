@@ -53,6 +53,7 @@ const Login = () => {
 
   return (
     <div className="hero lg:py-30 py-10 ">
+      <title>Login</title>
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <Lottie

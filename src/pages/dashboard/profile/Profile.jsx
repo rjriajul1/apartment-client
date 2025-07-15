@@ -17,6 +17,7 @@ const Profile = () => {
   },[axiosSecure,user])
   return (
     <div className="max-w-3xl mt-10 mx-auto p-6 bg-base-100 rounded-2xl shadow-md">
+      <title>Dashboard || Profile</title>
       {/* Profile Header */}
       <div className="flex flex-col sm:flex-row items-center gap-6">
         <img

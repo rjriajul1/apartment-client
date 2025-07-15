@@ -108,6 +108,7 @@ const AdminProfile = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-10">
+      <title>Dashboard || Admin Profile</title>
       {/* Profile Info */}
       <div className="bg-base-100 p-6 rounded-xl shadow-lg flex items-center gap-6">
         <img

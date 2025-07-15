@@ -1,6 +1,7 @@
 const TermsService = () => {
   return (
     <section className="bg-base-100 text-base-content py-16 px-4 md:px-10 lg:px-20">
+      <title>Terms Of Service</title>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-title font-bold text-primary mb-6">
           Terms of Service

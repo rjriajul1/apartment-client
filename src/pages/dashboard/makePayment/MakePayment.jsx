@@ -70,6 +70,7 @@ const MakePayment = () => {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 bg-base-100 p-8 rounded-2xl shadow-lg border border-gray-200">
+      <title>Dashboard || Make Payment</title>
       <h2 className="text-2xl font-bold mb-2 text-primary flex items-center gap-2">
         <FaMoneyCheckAlt /> Make a Payment
       </h2>

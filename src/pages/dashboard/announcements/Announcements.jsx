@@ -5,6 +5,7 @@ const Announcements = () => {
   const data = useLoaderData();
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
+      <title>Dashboard || Announcement</title>
       <h2 className="text-3xl font-bold text-center text-primary mb-6 flex items-center justify-center gap-2">
         <FaBullhorn /> Latest Announcements
       </h2>
