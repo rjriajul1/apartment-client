@@ -17,6 +17,11 @@
   --color-error: #dc2626;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;

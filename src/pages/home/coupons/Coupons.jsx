@@ -13,11 +13,11 @@ const Coupons = ({ coupons }) => {
         </p>
 
         <Marquee play={true} pauseOnHover={true} speed={100} >
-          <div className=" p-2 flex">
+          <div className=" p-2 flex ">
             {coupons?.map((coupon) => (
               <div
                 key={coupon._id}
-                className="relative group p-6 bg-white rounded-xl shadow-md border border-transparent hover:border-primary transition duration-500 overflow-hidden ml-30"
+                className="relative group p-6 bg-white rounded-xl shadow-md border border-transparent hover:border-primary transition duration-500 overflow-hidden ml-30 w-72"
               >
                 {/* Icon */}
                 <div className="text-4xl text-accent mb-4">

@@ -74,6 +74,11 @@ export const router = createBrowserRouter([
     element:<PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
     children: [
       // general routes
+       {
+      path:'announcements',
+      Component:Announcements,
+      loader:() =>  fetch(`${import.meta.env.VITE_URL}/announcements`)
+    },
     {
       path: 'profile',
       Component:Profile,
@@ -82,12 +87,7 @@ export const router = createBrowserRouter([
      path:'adminProfile',
      Component:AdminProfile
     },
-    {
-      path:'announcements',
-      Component:Announcements,
-      loader:() =>  fetch(`${import.meta.env.VITE_URL}/announcements`)
-
-    },
+   
     // member routes
     {
       path:'makePayment',
