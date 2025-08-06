@@ -16,7 +16,7 @@ const Announcements = () => {
             key={item._id}
             className="bg-white shadow-md border rounded-xl p-5 hover:shadow-lg transition"
           >
-            <h3 className="text-xl font-semibold text-primary mb-2">
+            <h3 className="text-xl font-semibold text-primary mb-3">
               {item.title}
             </h3>
             <p className="text-gray-700 mb-3">{item.description}</p>
