@@ -12,7 +12,7 @@ const Coupons = ({ coupons }) => {
           Save on your rent, maintenance, and more — grab a deal today!
         </p>
 
-        <Marquee play={true} pauseOnHover={true} speed={90} >
+        <Marquee play={true} pauseOnHover={true} speed={100} >
           <div className=" p-2 flex ">
             {coupons?.map((coupon) => (
               <div
